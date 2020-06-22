@@ -64,7 +64,7 @@ public class PhoneDao {
 
 				// 3. SQL문 준비 / 바인딩 / 실행
 				String query = ""; // 쿼리문 문자열만들기, ? 주의
-				query += " INSERT INTO person ";
+				query += " INSERT INTO phone ";
 				query += " VALUES (seq_person_id.nextval, ?, ?, ?) ";
 				// System.out.println(query);
 
@@ -205,6 +205,48 @@ public class PhoneDao {
 
 			close();
 			return count;
+		}
+		
+		//사람정보 updateForm.jsp
+		public PersonVo getPerson(int personId) {
+			
+			PersonVo personVo = null;
+			getConnection();
+			try {
+				// 3. SQL문 준비 / 바인딩 / 실행 --> 완성된 sql문을 가져와서 작성할것
+				String query = "";
+				query += " select  person_id, ";
+				query += "         name, ";
+				query += "         hp, ";
+				query += "         company ";
+				query += " from person ";
+				query += " where person_id = ? ";
+				pstmt = conn.prepareStatement(query); //쿼리로 만들기
+				pstmt.setInt(1, personId);
+				
+				
+				rs = pstmt.executeQuery();
+				
+				while (rs.next()) {
+					int id = rs.getInt("person_id");
+					String name = rs.getString("name");
+					String hp = rs.getString("hp");
+					String company = rs.getString("company");
+
+					personVo = new PersonVo(id, name, hp, company);
+					
+				}
+		
+
+			} catch (SQLException e) {
+				System.out.println("error:" + e);
+			}
+		
+		
+		
+		
+			close();
+			return personVo;
 		}
 	
 }

@@ -44,6 +44,10 @@
 				<td>회사(company)</td>
 				<td><%=personVo.getCompany()%></td>
 			</tr>
+			<tr>
+				<td><a href ="./updateForm.jsp?personid=<%=personVo.getPersonId() %>">수정</a></td>
+				<td><a href = "./delete.jsp?personid=<%=personVo.getPersonId() %>">삭제></a></td>
+			</tr>
 		</tbody>
 	</table>
 	<br>
